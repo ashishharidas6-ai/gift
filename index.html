@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Happy Birthday, Anavadya ❤️</title>
+<meta name="description" content="A little gift, wrapped for Anavadya." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Ambient floating petals, always on top of background, below content -->
+<canvas id="petal-canvas"></canvas>
+<canvas id="confetti-canvas"></canvas>
+<div class="countdown-flash"></div>
+<div class="gift-light-burst"></div>
+
+<!-- ============================================================
+     LOADING SCREEN
+============================================================ -->
+<section id="screen-loading" class="screen is-active">
+  <div class="loader-gift">
+    <svg viewBox="0 0 100 100" fill="none">
+      <rect x="18" y="42" width="64" height="46" rx="6" fill="#C9967B"/>
+      <rect x="18" y="42" width="64" height="14" rx="4" fill="#B6795E"/>
+      <rect x="46" y="20" width="8" height="68" fill="#F5CDD6"/>
+      <rect x="18" y="52" width="64" height="8" fill="#F5CDD6"/>
+      <path d="M50 20C46 8 32 8 34 18C36 26 50 20 50 20Z" fill="#E7E1F7"/>
+      <path d="M50 20C54 8 68 8 66 18C64 26 50 20 50 20Z" fill="#E7E1F7"/>
+    </svg>
+  </div>
+  <p class="loader-text">Preparing your surprise&hellip;</p>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
+</section>
+
+<!-- ============================================================
+     SCREEN 1 — PASSWORD LOCK
+============================================================ -->
+<section id="screen-lock" class="screen">
+  <div class="glass-card">
+    <div class="lock-icon" id="lock-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <rect x="4" y="10" width="16" height="10" rx="2.5"/>
+        <path d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3" />
+      </svg>
+    </div>
+    <h1>This gift is waiting for someone special.</h1>
+    <p class="instruction">Enter the date that unlocks your surprise.</p>
+    <form id="lock-form">
+      <div class="date-input-wrap">
+        <input type="date" id="birthday-input" required />
+      </div>
+      <p class="lock-message" id="lock-message">That's not quite it. Try again.</p>
+      <button type="submit" class="btn">Unlock</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCREEN 2 — COUNTDOWN
+============================================================ -->
+<section id="screen-countdown" class="screen">
+  <p class="countdown-label">Your gift is almost here&hellip;</p>
+  <div class="countdown-number" id="countdown-number">3</div>
+</section>
+
+<!-- ============================================================
+     SCREEN 3 — GIFT BOX
+============================================================ -->
+<section id="screen-box" class="screen">
+  <div class="gift-stage">
+    <svg id="gift-svg" viewBox="0 0 200 200">
+      <ellipse class="gift-glow" cx="100" cy="150" rx="70" ry="16" fill="#F5CDD6" opacity="0.4"/>
+      <rect x="40" y="95" width="120" height="80" rx="10" fill="#C9967B"/>
+      <rect class="gift-ribbon-v" x="90" y="95" width="20" height="80" fill="#F5CDD6"/>
+      <g class="gift-lid" id="gift-lid">
+        <rect x="34" y="75" width="132" height="30" rx="8" fill="#B6795E"/>
+        <rect class="gift-ribbon-h" x="90" y="75" width="20" height="30" fill="#F5CDD6"/>
+        <path class="gift-ribbon-v" d="M100 75C88 55 62 55 68 40C74 27 100 40 100 75Z" fill="#E7E1F7"/>
+        <path class="gift-ribbon-v" d="M100 75C112 55 138 55 132 40C126 27 100 40 100 75Z" fill="#E7E1F7"/>
+      </g>
+    </svg>
+  </div>
+  <p class="instruction">Tap to open your birthday gift.</p>
+</section>
+
+<!-- ============================================================
+     SCREEN 4 — HERO
+============================================================ -->
+<section id="screen-hero" class="screen">
+  <p class="eyebrow hero-eyebrow">A little something for</p>
+  <h1>Happy Birthday,<br /><span class="name">Anavadya ❤️</span></h1>
+  <p class="hero-subtitle centered-text">Today is a celebration of someone truly special.</p>
+  <div class="scroll-cue"><span class="line"></span>scroll</div>
+</section>
+
+<!-- ============================================================
+     SCROLLING FLOW — Screens 5 through 10
+============================================================ -->
+<div id="flow">
+
+  <!-- SCREEN 5 — PHOTO GALLERY -->
+  <section id="section-gallery" class="section">
+    <div class="section-head reveal">
+      
+      <h2>A Few Favourite Moments</h2>
+    </div>
+    <div class="gallery-grid reveal" id="gallery-grid"></div>
+    <div class="gallery-controls reveal">
+      <button class="gallery-btn-ghost" id="slideshow-toggle">▶ Play Slideshow</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 6 — MEMORY TIMELINE -->
+  <section id="section-timeline" class="section">
+    <div class="section-head reveal">
+      
+      <h2>A Little Timeline</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <span class="timeline-dot"></span>
+        <div class="glass-card">
+          <span class="eyebrow">Memories</span>
+          <p>All the small moments that quietly became the best ones.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <span class="timeline-dot"></span>
+        <div class="glass-card">
+          <span class="eyebrow">Beautiful Moments</span>
+          <p>The kind you don't plan for, but never forget.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <span class="timeline-dot"></span>
+        <div class="glass-card">
+          <span class="eyebrow">Dreams</span>
+          <p>Everything you're still quietly hoping for.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <span class="timeline-dot"></span>
+        <div class="glass-card">
+          <span class="eyebrow">Today</span>
+          <p>A day made entirely for celebrating you.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <span class="timeline-dot"></span>
+        <div class="glass-card">
+          <span class="eyebrow">Future</span>
+          <p>Here's to everything that's still ahead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 7 — BIRTHDAY LETTER -->
+  <section id="section-letter" class="section">
+    <div class="section-head reveal">
+      
+      <h2>A Letter for You</h2>
+    </div>
+    <div class="letter-paper reveal">
+      <p id="letter-text"></p>
+    </div>
+  </section>
+
+  <!-- SCREEN 8 — MUSIC -->
+  <section id="section-music" class="section">
+    <div class="section-head reveal">
+      
+      <h2>Now Playing</h2>
+    </div>
+    <div class="music-card glass-card reveal">
+      <div class="music-art" id="music-art"></div>
+      <p class="music-title">Birthday Melody</p>
+      <p class="music-track" id="music-status">Tap play to begin</p>
+      <div class="music-controls">
+        <button class="music-btn" id="music-mute" aria-label="Mute">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 5 6 9H3v6h3l5 4V5Z"/></svg>
+        </button>
+        <button class="music-btn primary" id="music-play" aria-label="Play">
+          <svg id="music-play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="music-btn" id="music-next" aria-label="Next track">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4l10 8-10 8V4Z"/><path d="M18 5v14"/></svg>
+        </button>
+      </div>
+      <div class="volume-row">
+        <span class="eyebrow">Vol</span>
+        <input type="range" id="music-volume" min="0" max="1" step="0.01" value="0.6" />
+      </div>
+      <audio id="audio-player" loop preload="auto"></audio>
+    </div>
+  </section>
+
+ 
+  
+  <!-- SCREEN 10 — FINAL MESSAGE -->
+  
+
+  <section class="section countdown-section">
+    <div class="section-head reveal">
+      <h2>Time Since 28 Nov 2025</h2>
+    </div>
+    <div class="glass-card reveal countdown-card">
+      <div class="countdown-grid" id="elapsed-countdown">
+        <div class="countdown-item"><span class="countdown-value" data-unit="months">0</span><span class="countdown-label">Months</span></div>
+        <div class="countdown-item"><span class="countdown-value" data-unit="weeks">0</span><span class="countdown-label">Weeks</span></div>
+        <div class="countdown-item"><span class="countdown-value" data-unit="days">0</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-item"><span class="countdown-value" data-unit="hours">0</span><span class="countdown-label">Hours</span></div>
+        <div class="countdown-item"><span class="countdown-value" data-unit="minutes">0</span><span class="countdown-label">Minutes</span></div>
+        <div class="countdown-item"><span class="countdown-value" data-unit="seconds">0</span><span class="countdown-label">Seconds</span></div>
+      </div>
+      <p>When the clock stops ticking... i will stop loving you.</p>
+    </div>
+  </section>
+<section id="section-final" class="section">
+    <div class="reveal">
+     
+      <h2>Thank you for taking this little journey with me.</h2>
+      <p>I hope this surprise made your birthday a little brighter.<br />Happy Birthday, Anavadya.</p>
+      <div class="final-heart">❤️</div>
+    </div>
+    <p>I will be there for you always.</p>
+    <p>And i will always love you❤️.</p>
+
+  </section>
+</div>
+
+<!-- Fullscreen photo viewer -->
+<div id="lightbox">
+  <button id="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
