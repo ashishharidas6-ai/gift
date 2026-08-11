@@ -1,0 +1,12 @@
+ <!-- SCREEN 9 — YOUR GIFT -->
+  <section id="section-gift" class="section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Screen Nine</p>
+    </div>
+    <div class="gift-card glass-card reveal">
+      <div class="gift-card-icon">🎁</div>
+      <h2>Your Gift</h2>
+      <p>I made something especially for you.</p>
+      <a href="#" id="gift-download-btn" class="btn" target="_blank" rel="noopener">Open My Gift</a>
+    </div>
+  </section>

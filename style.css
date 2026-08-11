@@ -67,7 +67,7 @@ button{ font-family: inherit; cursor: pointer; }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
-  *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  *{ animation-duration: 0.01ms ; animation-iteration-count: 1 ; transition-duration: 0.01ms ; scroll-behavior: auto ; }
 }
 
 /* ---------- layout shell ---------- */
@@ -250,82 +250,233 @@ button{ font-family: inherit; cursor: pointer; }
 .reveal{ opacity: 0; transform: translateY(36px); transition: opacity 1s var(--ease-silk), transform 1s var(--ease-silk); }
 .reveal.is-in{ opacity: 1; transform: translateY(0); }
 
-/* ============================================================
-   SCREEN 5 — GALLERY
-   ============================================================ */
-#section-gallery{ background: var(--ivory); }
-.gallery-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.4rem;
-  width: 100%;
-  max-width: 1000px;
-}
-.gallery-card{
-  position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  aspect-ratio: 4/5;
-  background: var(--lavender);
-  transition: transform var(--dur-med) var(--ease-silk), box-shadow var(--dur-med) var(--ease-silk);
-}
-.gallery-card:hover{ transform: translateY(-8px) scale(1.02); box-shadow: var(--shadow-soft); }
-.gallery-card img{ width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-silk); }
-.gallery-card:hover img{ transform: scale(1.08); }
-.gallery-empty{
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  padding: 2rem; color: var(--charcoal-soft); font-style: italic; font-size: 0.95rem;
-  grid-column: 1 / -1;
-}
-.gallery-controls{ margin-top: 2.2rem; }
-.gallery-btn-ghost{
-  background: transparent; border: 1px solid var(--rose-gold); color: var(--rose-gold-deep);
-  padding: 0.7rem 1.6rem; border-radius: 999px; font-size: 0.85rem; letter-spacing: 0.03em;
-  transition: background var(--dur-fast) var(--ease-silk);
-}
-.gallery-btn-ghost:hover{ background: rgba(201,150,123,0.1); }
 
-/* fullscreen viewer */
-#lightbox{
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(46,42,38,0.92);
-  display: none; align-items: center; justify-content: center;
-  padding: 5vh 5vw;
+
+/* ============================================================
+   GALLERY — 2–3 PHOTOS PER ROW
+   Larger and taller variable-size collage
+   ============================================================ */
+
+.gallery-grid {
+  display: grid;
+
+  /* 3 columns */
+  grid-template-columns: repeat(3, 260px);
+
+  /* Make each grid unit taller */
+  grid-auto-rows: 230px;
+
+  grid-auto-flow: dense;
+
+  gap: 16px;
+
+  width: max-content;
+  max-width: 100%;
+
+  margin: 0 auto;
+
+  justify-content: center;
 }
-#lightbox.is-active{ display: flex; }
-#lightbox img{ max-width: 100%; max-height: 90vh; border-radius: var(--radius-sm); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
-#lightbox-close{
-  position: absolute; top: 2rem; right: 2rem;
-  background: rgba(255,255,255,0.15); border: none; color: #fff;
-  width: 44px; height: 44px; border-radius: 50%; font-size: 1.4rem;
+
+
+/* ------------------------------------------------------------
+   Base photo card
+------------------------------------------------------------ */
+
+.gallery-card {
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  background: transparent;
+
+  box-shadow: var(--shadow-card);
+
+  cursor: pointer;
+
+  transition:
+    transform var(--dur-med) var(--ease-silk),
+    box-shadow var(--dur-med) var(--ease-silk);
 }
+
+
+/* ------------------------------------------------------------
+   VARIABLE SIZES
+------------------------------------------------------------ */
+
+/* Small / normal */
+
+.gallery-normal {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+
+/* Medium */
+
+.gallery-medium {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+
+/* Large */
+
+.gallery-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+
+/* ------------------------------------------------------------
+   Images
+------------------------------------------------------------ */
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition:
+    transform 1.2s var(--ease-silk);
+}
+
+
+/* Hover */
+
+.gallery-card:hover {
+  transform: scale(1.025);
+
+  box-shadow: var(--shadow-soft);
+
+  z-index: 2;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (max-width: 900px) {
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 190px);
+
+    grid-auto-rows: 200px;
+
+    gap: 12px;
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   2 PHOTOS PER ROW
+============================================================ */
+
+@media (max-width: 650px) {
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 150px);
+
+    grid-auto-rows: 190px;
+
+    gap: 10px;
+  }
+
+}
+
+
+/* Small phones */
+
+@media (max-width: 420px) {
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 135px);
+
+    grid-auto-rows: 175px;
+
+    gap: 8px;
+  }
+
+}
+
 
 /* ============================================================
    SCREEN 6 — MEMORY TIMELINE
    ============================================================ */
-#section-timeline{ background: linear-gradient(180deg, var(--ivory), var(--lavender) 100%); }
-.timeline{ position: relative; width: 100%; max-width: 640px; }
+
+#section-timeline{
+  background: linear-gradient(180deg, var(--ivory), var(--lavender) 100%);
+}
+
+.timeline{
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+}
+
 .timeline::before{
-  content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
   background: linear-gradient(var(--rose-gold), var(--lavender-deep));
   transform: translateX(-50%);
 }
-.timeline-item{ position: relative; padding: 2.6rem 0; }
-.timeline-item .glass-card{ display:inline-block; padding: 1.6rem 2.2rem; max-width: 380px; }
+
+.timeline-item{
+  position: relative;
+  padding: 2.6rem 0;
+}
+
+.timeline-item .glass-card{
+  display: inline-block;
+  padding: 1.6rem 2.2rem;
+  max-width: 380px;
+}
+
 .timeline-dot{
-  width: 10px; height: 10px; border-radius: 50%; background: var(--rose-gold);
-  position: absolute; left: 50%; top: 3rem; transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rose-gold);
+  position: absolute;
+  left: 50%;
+  top: 3rem;
+  transform: translateX(-50%);
   box-shadow: 0 0 0 6px rgba(201,150,123,0.18);
 }
-.timeline-item .eyebrow{ display:block; margin-bottom: 0.5rem; }
+
+.timeline-item .eyebrow{
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 
 /* ============================================================
    SCREEN 7 — BIRTHDAY LETTER
    ============================================================ */
-#section-letter{ background: var(--ivory-deep); }
+
+#section-letter{
+  background: var(--ivory-deep);
+}
+
 .letter-paper{
-  max-width: 560px; width: 100%;
+  max-width: 560px;
+  width: 100%;
   background: var(--frost-strong);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
@@ -333,10 +484,17 @@ button{ font-family: inherit; cursor: pointer; }
   animation: paperSway 6s ease-in-out infinite;
   transform-origin: 50% 0%;
 }
+
 @keyframes paperSway{
-  0%,100%{ transform: rotate(-0.4deg); }
-  50%{ transform: rotate(0.4deg); }
+  0%,100%{
+    transform: rotate(-0.4deg);
+  }
+
+  50%{
+    transform: rotate(0.4deg);
+  }
 }
+
 #letter-text{
   font-family: 'Caveat', cursive;
   font-size: 1.7rem;
@@ -345,8 +503,22 @@ button{ font-family: inherit; cursor: pointer; }
   white-space: pre-wrap;
   text-align: left;
 }
-.letter-cursor{ display:inline-block; width: 2px; background: var(--rose-gold-deep); margin-left: 2px; animation: blink 0.9s step-end infinite; }
-@keyframes blink{ 50%{ opacity: 0; } }
+
+.letter-cursor{
+  display: inline-block;
+  width: 2px;
+  background: var(--rose-gold-deep);
+  margin-left: 2px;
+  animation: blink 0.9s step-end infinite;
+}
+
+@keyframes blink{
+  50%{
+    opacity: 0;
+  }
+}
+
+
 
 /* ============================================================
    SCREEN 8 — MUSIC
