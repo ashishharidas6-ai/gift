@@ -1,4 +1,3 @@
-
 /* ============================================================
    Happy Birthday, Anavadya — main script
    All screen logic, particles, and interactions live here.
@@ -742,8 +741,6 @@
 
     initMusicPlayer();
 
-    initGiftButton();
-
   }
 
 
@@ -1474,18 +1471,6 @@ lightbox.addEventListener("click", e => {
 
     }
   );
-
-
-  /* ============================================================
-     SCREEN 9 — GIFT BUTTON
-  ============================================================ */
-
-  function initGiftButton() {
-
-    $("#gift-download-btn").href =
-      CONFIG.GIFT_URL;
-
-  }
 
 
   /* ============================================================
